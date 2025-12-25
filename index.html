@@ -4,11 +4,108 @@
   <meta charset="UTF-8">
   <title>Personal Spending Tracker</title>
 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.4/dist/semantic.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.4/dist/semantic.min.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Personal Spending Tracker</h1>
+  <div class="ui text container" style="padding-top: 1em;">
+    <h1 class="ui center aligned teal header">Personal Spending Tracker</h1>
 
+    <button 
+      class="ui right floated labeled icon teal button" 
+      style="margin-bottom: 1em;"
+      onclick="$('#addExpense').modal('show');"
+    >
+      <i class="plus icon"></i>
+      Add Expense
+    </button>
+
+    <table class="ui compact selectable table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Category</th>
+          <th class="right aligned">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2024/12/12</td>
+          <td>Food</td>
+          <td class="right aligned">1000</td>
+        </tr>
+        <tr>
+          <td>2024/12/10</td>
+          <td>Transport</td>
+          <td class="right aligned">500</td>
+        </tr>
+        <tr>
+          <td>2024/12/04</td>
+          <td>Entertainment</td>
+          <td class="right aligned">2000</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+  </div>
+
+
+  <!-- MODAL -->
+
+  <div class="ui tiny modal" id="addExpense">
+      <div class="basic header">Add Expense</div>
+      <div class="content">
+        <div class="ui form">
+          <div class="fields">
+
+            
+            <div class="field">
+              <label>Category</label>
+              <select class="ui fluid dropdown">
+                <option value="transport">Transport</option>
+                <option value="sport">Sport</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="food">Food</option> 
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Amount</label>
+              <input type="number" placeholder="$">
+            </div>
+
+            <div class="field">
+              <label>Date</label>
+              <div class="ui calendar">
+                <div class="ui input left icon">
+                  <input type="text" placeholder="Pick up a date" name="date">
+                  <i class="calendar icon"></i>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="basic actions">
+          <!-- <div class="ui negative button">Cancel</div> -->
+          <div class="ui positive button">Save</div>
+      </div>
+  </div>
+
+  <!--  -->
   <script src="script.js"></script>
+
+  <script>
+    $('.ui.calendar').calendar({
+      type: 'date'
+    });
+  </script>
 </body>
 </html>
