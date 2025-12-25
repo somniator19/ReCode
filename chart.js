@@ -12,8 +12,7 @@ export function renderChart(ctx, dailyTotals) {
       labels,
       datasets: [{
         label: "Daily Spending",
-        data,
-        fill: false
+        data
       }]
     }
   });

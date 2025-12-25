@@ -15,14 +15,6 @@ export function addEntry(entry) {
   return entries;
 }
 
-export function updateEntry(id, updates) {
-  const entries = loadEntries().map(e =>
-    e.id === id ? { ...e, ...updates } : e
-  );
-  saveEntries(entries);
-  return entries;
-}
-
 export function deleteEntry(id) {
   const entries = loadEntries().filter(e => e.id !== id);
   saveEntries(entries);

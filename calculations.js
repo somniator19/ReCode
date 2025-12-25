@@ -12,8 +12,9 @@ export function totalsDaily(entries) {
   }, {});
 }
 
-export function detectOutliers(entries, threshold = 2) {
+export function detectOutliers(entries) {
   const groups = {};
+
   entries.forEach(e => {
     groups[e.category] = groups[e.category] || [];
     groups[e.category].push(e.amount);
@@ -30,7 +31,7 @@ export function detectOutliers(entries, threshold = 2) {
       values.reduce((a, v) => a + (v - mean) ** 2, 0) / values.length
     );
 
-    if (Math.abs(e.amount - mean) > threshold * std) {
+    if (Math.abs(e.amount - mean) > 2 * std) {
       outliers.add(e.id);
     }
   });
