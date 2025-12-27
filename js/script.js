@@ -9,7 +9,6 @@ $(document).ready(function () {
 const dateRangePickerConf = {
   autoUpdateInput: false,
   opens: "left",
-  autoApply: true,
   locale: { format: "YYYY/MM/DD", cancelLabel: "Clear" },
   ranges: {
     Today: [moment(), moment()],
@@ -41,28 +40,19 @@ function initialize(data) {
   var timedData = calculateTimedData(data);
   summarize(categoricalData);
   createCharts(categoricalData, timedData);
-  
-
-$("#datefilter").daterangepicker(dateRangePickerConf, function (start, end, label) {
-  // بروزرسانی متن داخل input
-  $("#datefilter").val(start.format("YYYY/MM/DD") + " - " + end.format("YYYY/MM/DD"));
-
-  // فیلتر کردن داده‌ها
-  const filtered = expenses.filter(item => {
-    const itemDate = moment(item.date, "YYYY-MM-DD");
-    return itemDate.isBetween(start, end, null, "[]");
+  $("#datefilter").daterangepicker(dateRangePickerConf, function (start, end) {
+    console.log(data);
+    var filteredData = data.filter((item) => {
+      const itemDate = moment(item.date, "YYYY-MM-DD");
+      return itemDate.isBetween(start, end, null, "[]");
+    });
+    table.clear().rows.add(filteredData).draw();
+    categoricalData = calculateCategoricalData(filteredData);
+    timedData = calculateTimedData(filteredData);
+    $("#summary").empty();
+    summarize(categoricalData);
+    createCharts(categoricalData, timedData);
   });
-
-  // بروزرسانی جدول، خلاصه و چارت‌ها
-  updateTableAndCharts(filtered);
-
-  // *** خط مهم: بستن دستی پنجرهٔ picker ***
-  $("#datefilter").data("daterangepicker").hide();
-});
-
-
-
-
 }
 
 function initDataTableStyle() {
