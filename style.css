@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px;
+  max-width: 900px;
+}
+
+form input, form button {
+  padding: 8px;
+  margin-right: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.outlier {
+  background-color: #ffdddd;
+  font-weight: bold;
+}
+
+button {
+  cursor: pointer;
+}
