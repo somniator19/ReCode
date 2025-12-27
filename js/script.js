@@ -1,3 +1,6 @@
+let table; 
+
+
 $(document).ready(function () {
   $(".ui.dropdown").dropdown();
   $(".category-menu").dropdown(getCategories());
@@ -34,7 +37,8 @@ const dateRangePickerConf = {
 };
 
 function initialize(data) {
-  const table = createTable(data);
+
+  table = createTable(data); 
   initDataTableStyle();
   var categoricalData = calculateCategoricalData(data);
   var timedData = calculateTimedData(data);
@@ -83,6 +87,10 @@ function createTable(data) {
     initComplete: function () {
       var api = this.api();
       api.$("tr").on("click", function () {
+        //
+        //
+        //
+        $('#editExpenseModal').modal('show');
         console.log(this.id);
       });
     },
@@ -90,9 +98,16 @@ function createTable(data) {
   return table;
 }
 
+let categoryChartInstance = null;
+let timedChartInstance = null;
+
 function createCharts(categoricalData, timedData) {
-  catLabels = Object.keys(categoricalData);
-  new Chart(document.getElementById("categoryChart"), {
+  const catLabels = Object.keys(categoricalData);
+
+  if (categoryChartInstance) categoryChartInstance.destroy();
+  if (timedChartInstance) timedChartInstance.destroy();
+
+  categoryChartInstance = new Chart(document.getElementById("categoryChart"), {
     type: "doughnut",
     data: {
       labels: catLabels,
@@ -100,13 +115,14 @@ function createCharts(categoricalData, timedData) {
         {
           data: Object.values(categoricalData),
           backgroundColor: catLabels.map(
-            () => `hsl(${Math.random() * 360},70%,60%)`,
+            () => `hsl(${Math.random() * 360},70%,60%)`
           ),
         },
       ],
     },
   });
-  new Chart(document.getElementById("timed"), {
+
+  timedChartInstance = new Chart(document.getElementById("timed"), {
     type: "line",
     data: {
       labels: timedData.map((item) => item.label),
@@ -121,6 +137,7 @@ function createCharts(categoricalData, timedData) {
     },
   });
 }
+
 
 function calculateCategoricalData(data) {
   return data.reduce((acc, item) => {

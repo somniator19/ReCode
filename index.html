@@ -1,6 +1,8 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title>Personal Spending Tracker</title>
         <link
             rel="stylesheet"
@@ -129,7 +131,7 @@
 
                 <div class="field">
                   <label>Date</label>
-                  <input type="text" id="newExpenseDate" placeholder="YYYY/MM/DD">
+                  <input type="date" id="newExpenseDate" placeholder="YYYY/MM/DD">
                 </div>
 
               </div>
@@ -149,6 +151,60 @@
               </div>
           </div>
         </div>
+
+        <div class="ui tiny modal" id="editExpenseModal">
+          <div class="basic header">Edit Expense</div>
+          <div class="content">
+            <div class="ui form">
+              <div class="fields">
+                <div class="field">
+                  <label>Spent on</label>
+                  <div class="ui selection dropdown category-menu">
+                    <input type="hidden" name="category" id="editExpenseCategory">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Category</div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Amount</label>
+                  <input type="number" placeholder="AMD" id="editExpenseAmount">
+                </div>
+                <input type="text" id="idEditExpense" style="display:none;">
+
+                <div class="field">
+                  <label>Date</label>
+                  <input type="date" id="editExpenseDate" placeholder="YYYY/MM/DD">
+                </div>
+
+              </div>
+            </div>
+          </div>
+      
+          <div class="basic actions">
+              <div
+                class="ui negative button"
+                onclick="editExpense(
+                  $('#editxpenseCategory').val(),
+                  $('#editxpenseAmount').val(),
+                  $('#editExpenseDate').val()
+                );"
+              >
+                Delete
+              </div>
+              <div
+                class="ui positive button"
+                onclick="editExpense(
+                  $('#editxpenseCategory').val(),
+                  $('#editExpenseAmount').val(),
+                  $('#editExpenseDate').val()
+                );"
+              >
+               Save 
+              </div>
+          </div>
+        </div>
+        
+
 
     </body>
 
