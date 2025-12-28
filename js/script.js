@@ -3,8 +3,8 @@ let expenses = [];
 let categories = []; // simple array of category names, e.g. ["Food", "Transport"]
 
 // LocalStorage keys
-const STORAGE_KEY_EXPENSES = 'spending_tracker_expenses';
-const STORAGE_KEY_CATEGORIES = 'spending_tracker_categories';
+const STORAGE_KEY_EXPENSES = 'expenses';
+const STORAGE_KEY_CATEGORIES = 'categories';
 
 $(document).ready(function () {
   // load data from localStorage
