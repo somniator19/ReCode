@@ -1,6 +1,6 @@
 let table;
 let expenses = [];
-let categories = []; // simple array of category names, e.g. ["Food", "Transport"]
+let categories = []; // simple array of category names
 
 // LocalStorage keys
 const STORAGE_KEY_EXPENSES = 'expenses';
