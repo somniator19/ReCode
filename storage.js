@@ -16,7 +16,11 @@ export function addEntry(entry) {
 }
 
 export function deleteEntry(id) {
-  const entries = loadEntries().filter(e => e.id !== id);
-  saveEntries(entries);
-  return entries;
+  const shouldDelete = confirm("Are you sure you want to delete this?");
+  if (shouldDelete) {
+    const entries = loadEntries().filter(e => e.id !== id);
+    saveEntries(entries);
+    return entries;
+  }
+
 }
