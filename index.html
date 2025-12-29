@@ -1,22 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>⚡Glitch⚡</title>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link
+            rel="stylesheet"
+            href="https://cdn.datatables.net/2.3.6/css/dataTables.dataTables.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.4/dist/semantic.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+        />
 
     <!-- CDNs -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.6/css/dataTables.dataTables.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.4/dist/semantic.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.4/dist/semantic.min.js"></script>
-    <script src="https://cdn.datatables.net/2.3.6/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.3.6/js/dataTables.semanticui.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.min.js"></script>
+    <body style="background-color: #fafafa">
+        <div class="ui text container" style="padding-top: 1em">
+            <!-- Top bar -->
+            <div class="ui grid">
+                <!-- filter --->
+                <div class="ui eight wide column">
+                    <div class="filters ui form">
+                        <div class="field">
+                            <div class="ui input">
+                                <input
+                                    type="text"
+                                    id="datefilter"
+                                    placeholder="Select date range"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Expense Button -->
+                <div class="ui eight wide column">
+                    <div class="ui right floated circular buttons">
+                        <div class="ui button" id="addCategoryBtn">
+                            Add Category
+                        </div>
+                        <div class="ui teal button" id="addExpenseBtn">
+                            Add Expense
+                        </div>
+                    </div>
+                </div>
+            </div>
 
     <!-- Your custom CSS (Lilia's + overrides) -->
     <link rel="stylesheet" href="style.css" />
@@ -37,20 +71,107 @@
                 <input type="text" id="datefilter" placeholder="Select date range" />
               </div>
             </div>
-          </div>
+            <div class="basic actions">
+              <div class="ui positive button" id="saveCategoryBtn">Save</div>
+            </div>
         </div>
-        <!-- Add Expense Button -->
-        <div class="ui eight wide column">
-          <div class="ui right floated circular buttons">
-            <div class="ui button" id="addCategoryBtn">Add Category</div>
-            <div class="ui teal button" id="addExpenseBtn">Add Expense</div>
+                
+        <div class="ui tiny modal" id="addExpenseModal">
+          <div class="basic header">Add Expense</div>
+          <div class="content">
+            <div class="ui form">
+              <div class="fields">
+                <div class="field">
+                  <label>Spent on</label>
+                  <div class="ui selection dropdown category-menu">
+                    <input type="hidden" name="category" id="newxpenseCategory">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Category</div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Amount</label>
+                  <input type="number" placeholder="AMD" id="newExpenseAmount">
+                </div>
+
+                <div class="field">
+                  <label>Date</label>
+                  <input type="date" id="newExpenseDate" placeholder="YYYY/MM/DD">
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="basic actions">
+              <div
+                class="ui positive button"
+                onclick="addExpense(
+                  $('#newxpenseCategory').val(),
+                  $('#newExpenseAmount').val(),
+                  $('#newExpenseDate').val()
+                );"
+              >
+                Save
+              </div>
           </div>
         </div>
       </div>
 
-      <!-- Table -->
-      <div class="ui divider"></div>
-      <table id="dataTable" class="display ui compact selectable table"></table>
+        <div class="ui tiny modal" id="editExpenseModal">
+          <div class="basic header">Edit Expense</div>
+          <div class="content">
+            <div class="ui form">
+              <div class="fields">
+                <div class="field">
+                  <label>Spent on</label>
+                  <div class="ui selection dropdown category-menu">
+                    <input type="hidden" name="category" id="editExpenseCategory">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Category</div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Amount</label>
+                  <input type="number" placeholder="AMD" id="editExpenseAmount">
+                </div>
+                <input type="text" id="idEditExpense" style="display:none;">
+
+                <div class="field">
+                  <label>Date</label>
+                  <input type="date" id="editExpenseDate" placeholder="YYYY/MM/DD">
+                </div>
+
+              </div>
+            </div>
+          </div>
+      
+          <div class="basic actions">
+              <div
+                class="ui negative button"
+                onclick="editExpense(
+                  $('#editxpenseCategory').val(),
+                  $('#editxpenseAmount').val(),
+                  $('#editExpenseDate').val()
+                );"
+              >
+                Delete
+              </div>
+              <div
+                class="ui positive button"
+                onclick="editExpense(
+                  $('#editxpenseCategory').val(),
+                  $('#editExpenseAmount').val(),
+                  $('#editExpenseDate').val()
+                );"
+              >
+               Save 
+              </div>
+          </div>
+        </div>
+        
+
+    </body>
 
       <!-- Total Spending per Category -->
       <div class="ui divider"></div>
