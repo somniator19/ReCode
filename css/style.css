@@ -1,0 +1,89 @@
+/* Base styles (from Lilia, enhanced) */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #fafafa;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Container padding */
+.ui.text.container {
+  padding-top: 1em;
+}
+
+/* Table styling (DataTables override for compactness and responsiveness) */
+#dataTable {
+  width: 100% !important;
+}
+
+.display.ui.compact.selectable.table th,
+.display.ui.compact.selectable.table td {
+  padding: 10px;
+  text-align: left;
+}
+
+.display.ui.compact.selectable.table th {
+  background-color: #f1f1f1;
+}
+
+/* Anomaly highlighting (Task 8: unusually large/small expenses) */
+.outlier {
+  background-color: #ffdddd !important; /* Light red */
+  font-weight: bold;
+  color: #d00;
+}
+
+/* Button styles */
+.ui.button {
+  cursor: pointer;
+}
+
+/* Chart containers (responsive) */
+canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+/* Grid responsiveness */
+.ui.grid {
+  margin: 0 -0.5rem;
+}
+
+.ui.grid > .column {
+  padding: 0.5rem;
+}
+
+/* Modal improvements */
+.ui.modal {
+  border-radius: 8px;
+}
+
+.ui.form .field {
+  margin-bottom: 1em;
+}
+
+/* Summary section */
+#summary {
+  padding: 1em;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ui.grid > .column {
+    width: 100% !important;
+  }
+
+  .ui.right.floated.buttons {
+    float: none !important;
+    text-align: center;
+    margin-top: 1em;
+  }
+
+  canvas {
+    height: 300px !important;
+  }
+}

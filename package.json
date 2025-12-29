@@ -1,0 +1,24 @@
+{
+  "name": "recode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "test": "vitest"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/somniator19/ReCode.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/somniator19/ReCode/issues"
+  },
+  "homepage": "https://github.com/somniator19/ReCode#readme",
+  "devDependencies": {
+    "vitest": "^4.0.16"
+  }
+}
